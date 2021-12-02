@@ -1,15 +1,13 @@
 ---
 - name: create dir
   file:
-    path: /root/.kube/
+    path: $HOME/.kube/
     state: directory
     mode: '0755'
 - name: Copy admin.conf to Home directory
   copy:
     src: /etc/kubernetes/admin.conf
-    dest: /root/.kube/config
+    dest: $HOME/.kube/config
     remote_src: yes
     mode: 0755
-    owner: "root"
-    group: "root"
-
+    owner: "ubuntu"

@@ -19,7 +19,13 @@
   register: init_cluster
 - name: Create kube config directory
   include_tasks: dir.yml
-  run_once: yes           
+  run_once: yes
+- name: Drain node
+  shell: kubectl taint nodes --all node-role.kubernetes.io/master-
+- name: Apply Storage Class  
+  shell: kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+- name: Patch Storage Class 
+  shell: "kubectl patch storageclass <storageclass-name> -p '{\"metadata\": {\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"true\"}}}'"
 - name: Fetch join url for node to connect
   include_tasks: fetch_join_url.yml
   run_once: yes
