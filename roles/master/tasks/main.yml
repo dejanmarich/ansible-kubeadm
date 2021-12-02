@@ -25,7 +25,7 @@
 - name: Apply Storage Class  
   shell: kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
 - name: Patch Storage Class 
-  shell: "kubectl patch storageclass <storageclass-name> -p '{\"metadata\": {\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"true\"}}}'"
+  shell: "kubectl patch storageclass local-path -p '{\"metadata\": {\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"true\"}}}'"
 - name: Fetch join url for node to connect
   include_tasks: fetch_join_url.yml
   run_once: yes
